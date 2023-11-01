@@ -28,7 +28,6 @@ print(datos.info())
 print(datos.head())
 '''
 Al observar cada columna nos damos cuenta que no podemos completar los espacios en blanco con la media o la mediana. 
-Por lo tanto, eliminaremos las filas que contengan espacios en blanco.
 '''
 #Interpretaremos los 0, 1 de las columnas gratuito y larga-duración como False y True respectivamente
 
