@@ -131,7 +131,8 @@ def client_code(factory: AbstractFactory, datos) -> None:
     print(calculos_estadisticos.calculo_moda(datos))
     print(calculos_estadisticos.calculo_varianza(datos))
     print(calculos_estadisticos.calculo_desviacion_tipica(datos))
-    print(representaciones_estadisticas.representacion_grafica(datos))
+    #print(representaciones_estadisticas.representacion_grafica(datos))
+    #Está comentado porque no está implementado.
     
     
 
@@ -140,8 +141,10 @@ if __name__ == "__main__":
     
     print("Client: Testing client code with the first factory type:")
     client_code(ConcreteFactory1(), datos)
+    #Da error porque falta dividir el csv en dados numéricos y no numéricos.
 
     print("\n")
 
     print("Client: Testing the same client code with the second factory type:")
-    client_code(ConcreteFactory2(), datos)
+    #client_code(ConcreteFactory2(), datos)
+    #Está comentado porque no está implementado.
