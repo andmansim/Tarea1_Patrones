@@ -1,5 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from lectcsv import datos
 
 
 class AbstractFactory(ABC):
@@ -44,7 +45,7 @@ class ConcreteFactory2(AbstractFactory):
         return None
 
     def crea_representaciones_estadisticas(self) -> AbstractProductB:
-        return ConcreteProductB2()
+        return ConcreteProductB1()
 
 
 class AbstractProductA(ABC):
@@ -136,13 +137,11 @@ def client_code(factory: AbstractFactory, datos) -> None:
 
 
 if __name__ == "__main__":
-    """
-    El código cliente puede funcionar con cualquier clase de fábrica concreta.
-    """
+    
     print("Client: Testing client code with the first factory type:")
-    client_code(ConcreteFactory1())
+    client_code(ConcreteFactory1(), datos)
 
     print("\n")
 
     print("Client: Testing the same client code with the second factory type:")
-    client_code(ConcreteFactory2())
+    client_code(ConcreteFactory2(), datos)
