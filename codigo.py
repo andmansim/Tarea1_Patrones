@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from lectcsv import datos
+from leer_csv import datos
 
 
 class AbstractFactory(ABC):
