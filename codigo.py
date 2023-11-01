@@ -103,60 +103,36 @@ class AbstractProductB(ABC):
     """
 
     @abstractmethod
-    
+    def representacion_grafica(self) -> str:
+        pass
 
 
 
 class ConcreteProductB1(AbstractProductB):
     '''
-    Clase B1 que contiene los métodos que hacen cosas concretas del producto B.
-    Ponemos el código que queramos y lo retornamos.
+    En este clase implementamos la lógica y lo que queremos hacer con los métodos de AbstractProductA. (Cálculo estadísitico)
+
     '''
-    def useful_function_b(self) -> str:
-        return "The result of the product B1."
-
-    """
-    La variante, Producto B1, solo puede funcionar correctamente con la variante,
-    Producto A1. Sin embargo, acepta cualquier instancia de AbstractProductA como
-    argumento. 
-    """
-
-    def another_useful_function_b(self, collaborator: AbstractProductA) -> str:
-        result = collaborator.useful_function_a()
-        return f"The result of the B1 collaborating with the ({result})"
-
-
-class ConcreteProductB2(AbstractProductB):
-    '''
-    Clase B2 que contiene los métodos que hacen cosas concretas del producto B.
-    Ponemos el código que queramos y lo retornamos.
-    '''
-    def useful_function_b(self) -> str:
-        return "The result of the product B2."
-
-    def another_useful_function_b(self, collaborator: AbstractProductA):
-        """
-       La variante, Producto B2, solo puede funcionar correctamente con la variante,
-        Producto A2. Sin embargo, acepta cualquier instancia de AbstractProductA como
-        argumento. 
-        """
-        result = collaborator.useful_function_a()
-        return f"The result of the B2 collaborating with the ({result})"
+    def representacion_grafica(self, datos) -> str:
+        pass #Aquí iría la representación gráfica de los datos. PENSAR
 
 
     
-def client_code(factory: AbstractFactory) -> None:
+def client_code(factory: AbstractFactory, datos) -> None:
     """
-    El código del cliente funciona con fábricas y productos solo a través de tipos abstractos:
-    AbstractFactory y AbstractProduct. Esto le permite pasar cualquier subclase de fábrica o 
-    producto al código del cliente sin romperlo.
+    ns 
     """
-    product_a = factory.create_product_a()
-    product_b = factory.create_product_b()
-
-    print(f"{product_b.useful_function_b()}")
-    print(f"{product_b.another_useful_function_b(product_a)}", end="")
-
+    calculos_estadisticos = factory.crea_calculos_estadisticos()
+    representaciones_estadisticas = factory.crea_representaciones_estadisticas()
+    
+    print(calculos_estadisticos.calculo_media(datos))
+    print(calculos_estadisticos.calculo_mediana(datos))
+    print(calculos_estadisticos.calculo_moda(datos))
+    print(calculos_estadisticos.calculo_varianza(datos))
+    print(calculos_estadisticos.calculo_desviacion_tipica(datos))
+    print(representaciones_estadisticas.representacion_grafica(datos))
+    
+    
 
 
 if __name__ == "__main__":
