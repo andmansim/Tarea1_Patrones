@@ -107,7 +107,10 @@ class AbstractProductB(ABC):
     """
 
     @abstractmethod
-    def representacion_grafica(self) -> str:
+    def barras_2columnas(self):
+        pass
+    @abstractmethod
+    def barras_1columna(self):
         pass
 
 
@@ -117,8 +120,29 @@ class ConcreteProductB1(AbstractProductB):
     En este clase implementamos la lógica y lo que queremos hacer con los métodos de AbstractProductA. (Cálculo estadísitico)
 
     '''
-    def representacion_grafica(self, datos) -> str:
-        pass #Aquí iría la representación gráfica de los datos. PENSAR
+    
+    def barras_2columnas(self, datos, columna1, columna2):
+        '''
+        Método que nos agrupa los datos de dos columnas y nos los representa en una gráfica de barras.
+        '''
+        plt.figure(figsize=(15, 5))
+        plt.title('Gráfica de barras de ' + columna1 + ' y ' + columna2)
+        datos_agrupados = datos.groupby([columna1, columna2]).size()
+        datos_agrupados.plot(kind='bar')
+        plt.xticks(rotation='horizontal')
+        plt.show()
+
+    def barras_1columna(self, datos, columna):
+        '''
+        Método que nos cuenta los datos de una columna y nos los representa en una gráfica de barras.
+        '''
+        plt.figure(figsize=(15, 5))
+        plt.title('Gráfica de barras de ' + columna)
+        datos_representar = datos[columna].value_counts()
+        datos_representar.plot(kind='bar')
+        plt.xticks(rotation='horizontal')
+        plt.show()
+
 
     
 def client_code(factory: AbstractFactory, datos) -> None:
@@ -133,8 +157,12 @@ def client_code(factory: AbstractFactory, datos) -> None:
     print(calculos_estadisticos.calculo_moda(datos))
     print(calculos_estadisticos.calculo_varianza(datos))
     print(calculos_estadisticos.calculo_desviacion_tipica(datos))
-    #print(representaciones_estadisticas.representacion_grafica(datos))
-    #Está comentado porque no está implementado.
+    
+    representaciones_estadisticas.barras_col2(datos, 'GRATUITO', 'LARGA-DURACION')
+    representaciones_estadisticas.barras_col2(datos, 'LARGA-DURACION', 'TIPO')
+    representaciones_estadisticas.barras_col1(datos, 'GRATUITO')
+    representaciones_estadisticas.barras_col1(datos, 'DISTRITO-INSTALACION')
+    representaciones_estadisticas.barras_col1(datos, 'TIPO')
     
     
 
