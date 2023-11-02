@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from leer_csv import datos_num, datos_no_num
+from leer_csv import datos_num, datos
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -145,24 +145,25 @@ class ConcreteProductB1(AbstractProductB):
 
 
     
-def client_code(factory: AbstractFactory, datos) -> None:
+def client_code(factory: AbstractFactory, datos, numero) -> None:
     """
     ns 
     """
     calculos_estadisticos = factory.crea_calculos_estadisticos()
     representaciones_estadisticas = factory.crea_representaciones_estadisticas()
     
-    print(calculos_estadisticos.calculo_media(datos))
-    print(calculos_estadisticos.calculo_mediana(datos))
-    print(calculos_estadisticos.calculo_moda(datos))
-    print(calculos_estadisticos.calculo_varianza(datos))
-    print(calculos_estadisticos.calculo_desviacion_tipica(datos))
-    
-    representaciones_estadisticas.barras_col2(datos, 'GRATUITO', 'LARGA-DURACION')
-    representaciones_estadisticas.barras_col2(datos, 'LARGA-DURACION', 'TIPO')
-    representaciones_estadisticas.barras_col1(datos, 'GRATUITO')
-    representaciones_estadisticas.barras_col1(datos, 'DISTRITO-INSTALACION')
-    representaciones_estadisticas.barras_col1(datos, 'TIPO')
+    if numero == 1:
+        print(calculos_estadisticos.calculo_media(datos))
+        print(calculos_estadisticos.calculo_mediana(datos))
+        print(calculos_estadisticos.calculo_moda(datos))
+        print(calculos_estadisticos.calculo_varianza(datos))
+        print(calculos_estadisticos.calculo_desviacion_tipica(datos))
+    else:
+        representaciones_estadisticas.barras_col2(datos, 'GRATUITO', 'LARGA-DURACION')
+        representaciones_estadisticas.barras_col2(datos, 'LARGA-DURACION', 'TIPO')
+        representaciones_estadisticas.barras_col1(datos, 'GRATUITO')
+        representaciones_estadisticas.barras_col1(datos, 'DISTRITO-INSTALACION')
+        representaciones_estadisticas.barras_col1(datos, 'TIPO')
     
     
 
@@ -170,12 +171,12 @@ def client_code(factory: AbstractFactory, datos) -> None:
 if __name__ == "__main__":
     
     print("Client: Testing client code with the first factory type:")
-    client_code(ConcreteFactory1(), datos_num)
+    client_code(ConcreteFactory1(), datos_num, 1)
     #Da error porque falta dividir el csv en dados numéricos y no numéricos.
 
     print("\n")
 
     print("Client: Testing the same client code with the second factory type:")
-    #client_code(ConcreteFactory2(), datos_no_num)
-    #Está comentado porque no está implementado.
+    client_code(ConcreteFactory2(), datos, 2)
+    
 
