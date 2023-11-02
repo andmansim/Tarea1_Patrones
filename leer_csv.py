@@ -28,12 +28,10 @@ print(datos.info())
 print(datos.head())
 '''
 Al observar cada columna nos damos cuenta que no podemos completar los espacios en blanco con la media o la mediana. 
+Interpretaremos los 0, 1 de las columnas gratuito y larga-duración como False y True respectivamente
 '''
-#Interpretaremos los 0, 1 de las columnas gratuito y larga-duración como False y True respectivamente
 
-#Separamos el csv de datos num y datos no num, para hacer el análisis estadístico
+#Separamos el csv de datos numéicos y datos no numéricos, para hacer el análisis estadístico
 datos_num = datos.select_dtypes(include=['int64', 'float64'])
 datos_no_num = datos.select_dtypes(exclude=['int64', 'float64'])
 
-print(datos_num.info())
-print(datos_no_num.info())
