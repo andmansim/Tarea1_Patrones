@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from leer_csv import datos
+from leer_csv import datos_num, datos_no_num
 
 
 class AbstractFactory(ABC):
@@ -81,19 +81,19 @@ class ConcreteProductA1(AbstractProductA):
     '''
     def calculo_media(self, datos) -> str:
         media = datos.mean()
-        return f"La media es: {media}"
+        return f"La media es: \n {media}"
     def calculo_mediana(self, datos) -> str:
         mediana = datos.median()
-        return f"La mediana es: {mediana}"
+        return f"La mediana es: \n {mediana}"
     def calculo_moda(self, datos) -> str:
         moda = datos.mode()
-        return f"La moda es: {moda}"
+        return f"La moda es: \n {moda}"
     def calculo_varianza(self, datos) -> str:
         varianza = datos.var()
-        return f"La varianza es: {varianza}"
+        return f"La varianza es: \n {varianza}"
     def calculo_desviacion_tipica(self, datos) -> str:
         desviacion_tipica = datos.std()
-        return f"La desviación típica es: {desviacion_tipica}"
+        return f"La desviación típica es: \n {desviacion_tipica}"
 
 
 class AbstractProductB(ABC):
@@ -140,11 +140,11 @@ def client_code(factory: AbstractFactory, datos) -> None:
 if __name__ == "__main__":
     
     print("Client: Testing client code with the first factory type:")
-    client_code(ConcreteFactory1(), datos)
+    client_code(ConcreteFactory1(), datos_num)
     #Da error porque falta dividir el csv en dados numéricos y no numéricos.
 
     print("\n")
 
     print("Client: Testing the same client code with the second factory type:")
-    #client_code(ConcreteFactory2(), datos)
+    #client_code(ConcreteFactory2(), datos_no_num)
     #Está comentado porque no está implementado.

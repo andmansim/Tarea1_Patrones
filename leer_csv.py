@@ -31,5 +31,9 @@ Al observar cada columna nos damos cuenta que no podemos completar los espacios 
 '''
 #Interpretaremos los 0, 1 de las columnas gratuito y larga-duración como False y True respectivamente
 
-#Separar el csv de datos num y datos no num, para hacer el análisis estadístico
+#Separamos el csv de datos num y datos no num, para hacer el análisis estadístico
+datos_num = datos.select_dtypes(include=['int64', 'float64'])
+datos_no_num = datos.select_dtypes(exclude=['int64', 'float64'])
 
+print(datos_num.info())
+print(datos_no_num.info())
