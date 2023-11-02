@@ -1,6 +1,9 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from leer_csv import datos_num, datos_no_num
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 
 class AbstractFactory(ABC):
@@ -117,7 +120,6 @@ class ConcreteProductB1(AbstractProductB):
     def representacion_grafica(self, datos) -> str:
         pass #Aquí iría la representación gráfica de los datos. PENSAR
 
-
     
 def client_code(factory: AbstractFactory, datos) -> None:
     """
@@ -148,3 +150,4 @@ if __name__ == "__main__":
     print("Client: Testing the same client code with the second factory type:")
     #client_code(ConcreteFactory2(), datos_no_num)
     #Está comentado porque no está implementado.
+

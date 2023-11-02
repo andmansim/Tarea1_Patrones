@@ -1,5 +1,8 @@
 #Leemos el csv
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 datos = pd.read_csv('datos-emergencias.csv', sep=';', encoding='ISO-8859-1')
 
@@ -34,4 +37,29 @@ Interpretaremos los 0, 1 de las columnas gratuito y larga-duración como False y
 #Separamos el csv de datos numéicos y datos no numéricos, para hacer el análisis estadístico
 datos_num = datos.select_dtypes(include=['int64', 'float64'])
 datos_no_num = datos.select_dtypes(exclude=['int64', 'float64'])
+
+def barras_col2(datos, columna1, columna2):
+    '''
+    Función que nos agrupa los datos de dos columnas y nos los representa en una gráfica de barras.
+    '''
+    plt.title('Gráfica de barras de ' + columna1 + ' y ' + columna2)
+    datos_agrupados = datos.groupby([columna2, columna1]).size()
+    datos_agrupados.plot(kind='bar')
+    plt.xticks(rotation='horizontal')
+    plt.show()
+
+def barras_col1(datos, columna):
+    '''
+    Función que nos cuenta los datos de una columna y nos los representa en una gráfica de barras.
+    '''
+    plt.title('Gráfica de barras de ' + columna)
+    datos_representar = datos[columna].value_counts()
+    datos_representar.plot(kind='bar')
+    plt.xticks(rotation='horizontal')
+    plt.show()
+
+barras_col2(datos, 'GRATUITO', 'NOMBRE-INSTALACION')
+barras_col2(datos, 'FECHA', 'TITULO-ACTIVIDAD')
+barras_col2(datos, 'LARGA-DURACION', 'TITULO')
+barras_col1(datos, 'GRATUITO')
 
