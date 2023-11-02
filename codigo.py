@@ -159,11 +159,11 @@ def client_code(factory: AbstractFactory, datos, numero) -> None:
         print(calculos_estadisticos.calculo_varianza(datos))
         print(calculos_estadisticos.calculo_desviacion_tipica(datos))
     else:
-        representaciones_estadisticas.barras_col2(datos, 'GRATUITO', 'LARGA-DURACION')
-        representaciones_estadisticas.barras_col2(datos, 'LARGA-DURACION', 'TIPO')
-        representaciones_estadisticas.barras_col1(datos, 'GRATUITO')
-        representaciones_estadisticas.barras_col1(datos, 'DISTRITO-INSTALACION')
-        representaciones_estadisticas.barras_col1(datos, 'TIPO')
+        representaciones_estadisticas.barras_2columnas(datos, 'GRATUITO', 'LARGA-DURACION')
+        representaciones_estadisticas.barras_2columnas(datos, 'LARGA-DURACION', 'TIPO')
+        representaciones_estadisticas.barras_1columna(datos, 'GRATUITO')
+        representaciones_estadisticas.barras_1columna(datos, 'DISTRITO-INSTALACION')
+        representaciones_estadisticas.barras_1columna(datos, 'TIPO')
     
     
 
