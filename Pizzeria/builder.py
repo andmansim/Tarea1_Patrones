@@ -50,46 +50,43 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
     """
 
     def __init__(self) -> None:
-        """
-        Una instancia nueva de builder debe contener un objeto producto en blanco, que se usa en el ensamblaje posterior.
-        """
         self.reset()
 
     def reset(self) -> None:
-        self._product = Product1()
+        self._pizza = Product1() #pizza final
 
     @property
-    def product(self) -> Product1:
-        """
-        Los builders concretos proporcionan sus popios métodos para recuperar resultados.
-        Porque varios tipos de builders pueden crear productos completamente diferentes que no siguen la misma interfaz.
-        Por lo tanto, tales métodos no pueden declararse en la interfaz base del builder 
-        (al menos en un lenguaje de programación de tipo estático).
-        
-        Normalmente, después de devolver el resultado final al cliente, se espera que una instancia de builder esté lista para 
-        comenzar a producir otro producto.
-        Es por eso que es una práctica habitual llamar al método reset al final del cuerpo del método getProduct.
-        Sin embargo, este comportamiento no es obligatorio y puede hacer que sus builders esperen una llamada de reset explícita
-        desde el código del cliente antes de desechar el resultado anterior.
-    
-        """
-        product = self._product
+    def pizza(self) -> Product1:
+        pizza = self._pizza
         self.reset()
-        return product
+        return pizza
 
-    def produce_part_a(self) -> None:
-        self._product.add("PartA1")
-
-    def produce_part_b(self) -> None:
-        self._product.add("PartB1")
-
-    def produce_part_c(self) -> None:
-        self._product.add("PartC1")
-        
-    def produce_part_d(self) -> None:
-        self._product.add("PartD1")
-    def produce_part_e(self) -> None:
-        self._product.add("PartE1")
+    def tipo_masa(self) -> None:
+        self._pizza.add("Masa fina")
+    
+    def salsa_base(self) -> None:
+        self._pizza.add("Salsa de tomate")
+    
+    def ingr_principales(self) -> None:
+        self._pizza.add("Queso mozzarella")
+        self._pizza.add("Jamón York")
+        self._pizza.add("Champiñones")
+    
+    def tec_coccion(self) -> None:
+        self._pizza.add("Horno de leña")
+    
+    def presentacion(self) -> None:
+        self._pizza.add("Caja de cartón")
+    
+    def maridajes(self) -> None:
+        self._pizza.add("Vino tinto")
+        self._pizza.add("Cerveza")
+    
+    def extras(self) -> None:
+        self._pizza.add("Aceitunas negras")
+        self._pizza.add("Orégano")
+        self._pizza.add("Albahaca")
+    
 
 
 class Product1(): #Es el producto final, en este caso la pizza, donde se almacenan las partes de la pizza
