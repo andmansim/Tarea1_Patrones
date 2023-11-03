@@ -117,24 +117,17 @@ class Director: #Chef
     """
 
     def __init__(self) -> None:
-        self._builder = None #la declaramos así para que no ocupe espacio en memoria y lo protegemos, para que solo puedan acceder al self las herencias de la clase
+        self._builder = None 
 
     @property
-    def builder(self) -> Builder:
+    def builder(self) -> Builder: #getter del builder
         return self._builder
 
     @builder.setter
-    def builder(self, builder: Builder) -> None:
-        """
-        El director funciona con cualquier instancia de builder que el cliente le pase.
-        De esta manera, el código del cliente puede alterar el tipo final del producto recién ensamblado.
-        """
+    def builder(self, builder: Builder) -> None: #setter del builder
         self._builder = builder
 
-    """
-    El director puede construir varias variantes de producto utilizando las mismas etapas de construcción.
-    """
-
+    #Construimos el producto según el tipo de pizza que queramos
     def build_minimal_viable_product(self) -> None:
         self.builder.produce_part_a()
 
@@ -151,17 +144,13 @@ class Director: #Chef
         self.builder.produce_part_e()
 
 if __name__ == "__main__":
-    """
-    El código del cliente crea un objeto builder, pasa a su constructor y luego inicia el proceso de construcción.
-    El resultado final se recupera del objeto builder.
-    """
 
-    director = Director()
-    builder = ConcreteBuilder1()
-    director.builder = builder
+    director = Director() #Chef
+    builder = ConcreteBuilder1() #Tipo de pizza
+    director.builder = builder #Le decimos al chef que tipo de pizza queremos
 
     print("Standard basic product: ")
-    director.build_minimal_viable_product()
+    director.build_minimal_viable_product() #Le decimos al chef los pasos a seguir para dicha pizza
     builder.product.list_parts()
 
     print("\n")
@@ -172,9 +161,8 @@ if __name__ == "__main__":
 
     print("\n")
 
-    # Recuerde, el patrón builder se puede utilizar sin una clase director.
-    print("Custom product: ")
-    builder.produce_part_a()
+    print("Custom product: ") #Esto no lo entiendo
+    builder.produce_part_a() 
     builder.produce_part_b()
     builder.produce_part_c()
     builder.produce_part_d() 
