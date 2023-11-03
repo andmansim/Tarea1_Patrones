@@ -43,7 +43,7 @@ class Builder(ABC):
     def extras(self) -> None:
         pass
     
-class ConcreteBuilder1(Builder): #no son interfaces son clases, entonces las tenemos que instanciar
+class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los métodos de la clase Builder
     """
     Implementa la interfaz del Builder y proporciona implementaciones concretas de los métodos para construir las partes del objeto. 
     Cada builder concreto puede crear un objeto con una representación específica.
@@ -92,7 +92,7 @@ class ConcreteBuilder1(Builder): #no son interfaces son clases, entonces las ten
         self._product.add("PartE1")
 
 
-class Product1():
+class Product1(): #Es el producto final, en este caso la pizza, donde se almacenan las partes de la pizza
     """
     Solo se utiliza cuando el producto es complejo y requiere una configuración extensa. 
     Los resultados de varios builder pueden que no sigan la misma interfaz. 
@@ -109,7 +109,7 @@ class Product1():
         print(f"Product parts: {', '.join(self.parts)}", end="")
 
 
-class Director:
+class Director: #Chef
     """
     Es el único responsable de la ejecución de los pasos de construcción en una secuencia particular.
     Es útil cuando se producen productos de acuerdo con un orden o configuración específicos.
