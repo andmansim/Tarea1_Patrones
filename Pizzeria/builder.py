@@ -44,10 +44,11 @@ class Builder(ABC):
         pass
     
 class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los métodos de la clase Builder
-    """
-    Implementa la interfaz del Builder y proporciona implementaciones concretas de los métodos para construir las partes del objeto. 
-    Cada builder concreto puede crear un objeto con una representación específica.
-    """
+    '''
+    Le preguntamos al cliente que tipo de pizza quiere y vamos construyendo la pizza según los 
+    métodos que nos pida. 
+    Más adelante debemos de dale sugerencias en base a su historial, etc. 
+    '''
 
     def __init__(self) -> None:
         self.reset()
@@ -105,12 +106,10 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
     
 
 
-class Product1(): #Es el producto final, en este caso la pizza, donde se almacenan las partes de la pizza
-    """
-    Solo se utiliza cuando el producto es complejo y requiere una configuración extensa. 
-    Los resultados de varios builder pueden que no sigan la misma interfaz. 
-    Puede ser una clase única o una estructura de datos compleja.
-    """
+class Product1(): #Pizza agrupada
+    '''
+    Unimos cada parte de la pizza y lo almacenamos en una lista.
+    '''
 
     def __init__(self) -> None:
         self.parts = []
@@ -119,15 +118,14 @@ class Product1(): #Es el producto final, en este caso la pizza, donde se almacen
         self.parts.append(part)
 
     def list_parts(self) -> None:
-        print(f"Product parts: {', '.join(self.parts)}", end="")
+        print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
 
 
 class Director: #Chef
-    """
-    Es el único responsable de la ejecución de los pasos de construcción en una secuencia particular.
-    Es útil cuando se producen productos de acuerdo con un orden o configuración específicos.
-    La clase Director es opcional, ya que el código del cliente puede controlar los builders directamente.
-    """
+    '''
+    Nos prepara todo para poder contruir la pizza según los ingredientes del cliente y 
+    también marcamos el orden de los pasos a seguir.
+    '''
 
     def __init__(self) -> None:
         self._builder = None 
@@ -141,43 +139,36 @@ class Director: #Chef
         self._builder = builder
 
     #Construimos el producto según el tipo de pizza que queramos
-    def build_minimal_viable_product(self) -> None:
-        self.builder.produce_part_a()
+    def build_pizza_prueba1(self) -> None:
+        self.builder.tipo_masa()
+        self.builder.salsa_base()
+        self.builder.ingr_principales()
+        self.builder.tec_coccion()
+        self.builder.presentacion()
+        self.builder.maridajes()
+        self.builder.extras()
+        
 
-    def build_semi_featured_product(self) -> None:
-        self.builder.produce_part_a()
-        self.builder.produce_part_b()
-        self.builder.produce_part_c()
-
-    def build_full_featued_product(self) -> None:
-        self.builder.produce_part_a()
-        self.builder.produce_part_b()
-        self.builder.produce_part_c()
-        self.builder.produce_part_d()
-        self.builder.produce_part_e()
+    
 
 if __name__ == "__main__":
 
     director = Director() #Chef
     builder = ConcreteBuilder1() #Tipo de pizza
     director.builder = builder #Le decimos al chef que tipo de pizza queremos
-
-    print("Standard basic product: ")
-    director.build_minimal_viable_product() #Le decimos al chef los pasos a seguir para dicha pizza
-    builder.product.list_parts()
-
-    print("\n")
-
-    print("Standard full featured product: ")
-    director.build_full_featured_product()
-    builder.product.list_parts()
-
-    print("\n")
+    
+    print("Pizza 1: ")
+    director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
+    builder.pizza.list_parts() #Unimos todo
 
     print("Custom product: ") #Esto no lo entiendo
-    builder.produce_part_a() 
-    builder.produce_part_b()
-    builder.produce_part_c()
-    builder.produce_part_d() 
-    builder.product.list_parts()
+    builder.tipo_masa()
+    builder.salsa_base()
+    builder.ingr_principales()
+    builder.tec_coccion()
+    builder.presentacion()
+    builder.maridajes()
+    builder.extras()
+    builder.pizza.list_parts()
+    
     
