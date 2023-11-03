@@ -10,8 +10,8 @@ Tiene que haber medidas de seguridad para que no se pueda acceder a los datos de
 import csv
 
 class Pizza:
-    def __init__(self, name, extras=None):
-        self.name = name
+    def __init__(self, nombre, extras=None):
+        self.nombre = nombre
         self.extras = extras if extras else []
 
     def add_extra(self, extra):
@@ -19,95 +19,95 @@ class Pizza:
 
     def __str__(self):
         extras_str = ", ".join(self.extras)
-        return f"{self.name} ({extras_str})" if self.extras else self.name
+        return f"{self.nombre} ({extras_str})" if self.extras else self.nombre
 
 
-class Customer:
-    def __init__(self, name, password):
-        self.name = name
-        self.password = password
-        self.orders = []
+class Usuario:
+    def __init__(self, nombre, contrasenia):
+        self.nombre = nombre
+        self.contrasenia = contrasenia
+        self.ordenes = []
 
     def place_order(self, pizza, extras=None):
         if extras:
             pizza.add_extra(extras)
-        self.orders.append(pizza)
+        self.ordenes.append(pizza)
 
     def last_order(self):
-        if self.orders:
-            return self.orders[-1]
+        if self.ordenes:
+            return self.ordenes[-1]
         else:
             return None
 
 
-class PizzaShop:
+class TiendaPizza:
     def __init__(self):
-        self.customers = {}
+        self.usuario = {}
         self.load_data()
 
-    def save_data(self):
+    def guardar_datos(self):
         with open('pizza_data.csv', mode='w', newline='') as file:
-            writer = csv.writer(file)
-            for customer in self.customers.values():
-                for order in customer.orders:
-                    writer.writerow([customer.name, customer.password, order.name, ', '.join(order.extras)])
+            escribir = csv.writer(file)
+            for usuario in self.usuarios.values():
+                for orden in usuario.ordenes:
+                    escribir.writerow([usuario.nombre, usuario.contrasenia, orden.nombre, ', '.join(orden.extras)])
 
-    def load_data(self):
+    def cargando_datos(self):
         try:
             with open('pizza_data.csv', mode='r') as file:
-                reader = csv.reader(file)
-                for row in reader:
-                    name, password, pizza_name, extras = row
-                    if name not in self.customers:
-                        self.customers[name] = Customer(name, password)
-                    customer = self.customers[name]
-                    pizza = Pizza(pizza_name, extras.split(', '))
-                    customer.place_order(pizza)
+                leer = csv.reader(file)
+                for fila in leer:
+                    nombre, contrasenia, pizza_nombre, extras = fila
+                    if nombre not in self.usuarios:
+                        self.usuarios[nombre] = Usuario(nombre, contrasenia)
+                    usuario = self.usuarios[nombre]
+                    pizza = Pizza(pizza_nombre, extras.split(', '))
+                    usuario.place_order(pizza)
         except FileNotFoundError:
             pass
-    def register_customer(self, name, password):
-        if name not in self.customers:
-            self.customers[name] = Customer(name, password)
+    def registrar_usuario(self, nombre, contrasenia):
+        if nombre not in self.usuarios:
+            self.usuarios[nombre] = Usuario(nombre, contrasenia)
 
-    def login(self, name, password):
-        if name in self.customers and self.customers[name].password == password:
-            return self.customers[name]
+    def login(self, nombre, contrasenia):
+        if nombre in self.usuarios and self.usuarios[nombre].contrasenia == contrasenia:
+            return self.usuarios[nombre]
         else:
             return None
 
-    def is_customer_registered(self, name):
-        return name in self.customers
+    def usuario_registrado(self, nombre):
+        return nombre in self.usuarios
 
 
 def main():
-    pizza_shop = PizzaShop()
+    pizza_shop = TiendaPizza()
 
     while True:
         print("\nBienvenido a la pizzería!")
-        name = input("Por favor introduzca su nombre de usuario (0 para salir): ")
+        nombre = input("Por favor introduzca su nombre de usuario (0 para salir): ")
 
-        if name == "0":
+        if nombre == "0":
             break
 
-        if pizza_shop.is_customer_registered(name):
-            password = input("Enter your password: ")
-            customer = pizza_shop.login(name, password)
-            if customer:
-                last_order = customer.last_order()
+        if pizza_shop.is_customer_registered(nombre):
+            contrasenia = input("Enter your contrasenia: ")
+            usuario = pizza_shop.login(nombre, contrasenia)
+            if usuario:
+                last_order = usuario.last_order()
                 if last_order:
                     print(f"Your last order was: {last_order}")
                 else:
-                    print("You haven't placed any orders yet.")
+                    print("You haven't placed any ordenes yet.")
         else:
-            password = input("Create a password: ")
-            pizza_shop.register_customer(name, password)
-            customer = pizza_shop.login(name, password)
+            contrasenia = input("Create a contrasenia: ")
+            pizza_shop.register_customer(nombre, contrasenia)
+            customer = pizza_shop.login(nombre, contrasenia)
             print("Welcome, new customer!")
 
         while True:
             choice = input("\nWhat would you like to do (order/quit)? ")
 
-            if choice == "quit":
+            if choice == "0":
                 break
 
             if choice == "order":
@@ -120,7 +120,7 @@ def main():
                     pizza.add_extra(extra)
                     extra_choice = input("Would you like more extras (yes/no): ")
 
-                customer.place_order(pizza)
+                usuario.place_order(pizza)
                 print(f"Order placed: {pizza}")
 
     print("Goodbye!")
