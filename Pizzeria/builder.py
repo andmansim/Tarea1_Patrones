@@ -161,14 +161,5 @@ if __name__ == "__main__":
     director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts() #Unimos todo
 
-    print("Custom product: ") #Esto no lo entiendo
-    builder.tipo_masa()
-    builder.salsa_base()
-    builder.ingr_principales()
-    builder.tec_coccion()
-    builder.presentacion()
-    builder.maridajes()
-    builder.extras()
-    builder.pizza.list_parts()
     
     
