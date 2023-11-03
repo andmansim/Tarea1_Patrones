@@ -83,10 +83,10 @@ def main():
     pizza_shop = PizzaShop()
 
     while True:
-        print("\nWelcome to the Pizza Shop!")
-        name = input("Enter your name (or 'quit' to exit): ")
+        print("\nBienvenido a la pizzería!")
+        name = input("Por favor introduzca su nombre de usuario (0 para salir): ")
 
-        if name == "quit":
+        if name == "0":
             break
 
         if pizza_shop.is_customer_registered(name):
