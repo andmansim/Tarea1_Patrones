@@ -62,30 +62,46 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
         return pizza
 
     def tipo_masa(self) -> None:
-        self._pizza.add("Masa fina")
+        masa = input("¿Qué tipo de masa quieres? (fina, normal, gruesa): ")
+        self._pizza.add(masa)
     
     def salsa_base(self) -> None:
-        self._pizza.add("Salsa de tomate")
+        salsa = input("¿Qué salsa quieres? (tomate, barbacoa, carbonara): ")
+        self._pizza.add(salsa)
     
     def ingr_principales(self) -> None:
-        self._pizza.add("Queso mozzarella")
-        self._pizza.add("Jamón York")
-        self._pizza.add("Champiñones")
+        while True:
+            ingrediente = input("¿Qué ingrediente quieres? (pulsa 0 para salir): ")
+            if ingrediente == "0":
+                break
+            else:
+                self._pizza.add(ingrediente)
     
     def tec_coccion(self) -> None:
-        self._pizza.add("Horno de leña")
+        coccion = input("¿Qué técnica de cocción quieres? (horno de leña, horno eléctrico, horno de gas): ")
+        self._pizza.add(coccion)
     
     def presentacion(self) -> None:
-        self._pizza.add("Caja de cartón")
+        presentacion = input("¿Cómo quieres que se presente? (en caja de cartón, en plato de barro): ")
+        self._pizza.add(presentacion)
     
     def maridajes(self) -> None:
-        self._pizza.add("Vino tinto")
-        self._pizza.add("Cerveza")
+        while True:
+            maridaje = input("¿Qué maridaje quieres? (Vino tinto, cerveza, etc.)(pulsa 0 para salir): ")
+            if maridaje == "0":
+                break
+            else:
+                self._pizza.add(maridaje)
+        
     
     def extras(self) -> None:
-        self._pizza.add("Aceitunas negras")
-        self._pizza.add("Orégano")
-        self._pizza.add("Albahaca")
+        while True:
+            extra = input("¿Qué extra quieres? (bordes especiales, ingrediente extra, etc.)(pulsa 0 para salir): ")
+            if extra == "0":
+                break
+            else:
+                self._pizza.add(extra)
+        
     
 
 
