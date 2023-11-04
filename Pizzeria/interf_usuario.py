@@ -81,13 +81,13 @@ class TiendaPizza:
 
 def main():
     tienda_pizza = TiendaPizza()
-
-    while True:
+    controlador = True
+    while controlador:
         print("\nBienvenido a la pizzería!")
         nombre = input("Por favor introduzca su nombre de usuario (0 para salir): ")
 
         if nombre == "0":
-            break
+            controlador = False
 
         if tienda_pizza.usuario_registrado(nombre):
             contrasenia = input("Introduce contraseña: ")
@@ -104,11 +104,11 @@ def main():
             usuario = tienda_pizza.login(nombre, contrasenia)
             print("Bienvenido!")
 
-        while True:
-            elegir = input("\nQué le gustaría hacer: pedir o salir? ")
+        while controlador:
+            elegir = input("\nQué le pedir? (0 para salir) ")
 
-            if elegir == "salir":
-                break
+            if elegir == "0":
+                controlador = False
 
             if elegir == "pedir":
                 #Cambiar el código de aquí para que llame al otro lado
