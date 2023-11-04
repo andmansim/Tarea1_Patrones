@@ -28,12 +28,12 @@ class Usuario:
         self.contrasenia = contrasenia
         self.ordenes = []
 
-    def place_order(self, pizza, extras=None):
+    def pedido_actual(self, pizza, extras=None):
         if extras:
             pizza.add_extra(extras)
         self.ordenes.append(pizza)
 
-    def last_order(self):
+    def ultimo_pedido(self):
         if self.ordenes:
             return self.ordenes[-1]
         else:
@@ -80,7 +80,7 @@ class TiendaPizza:
 
 
 def main():
-    pizza_shop = TiendaPizza()
+    tienda_pizza = TiendaPizza()
 
     while True:
         print("\nBienvenido a la pizzería!")
@@ -89,30 +89,31 @@ def main():
         if nombre == "0":
             break
 
-        if pizza_shop.is_customer_registered(nombre):
-            contrasenia = input("Enter your contrasenia: ")
-            usuario = pizza_shop.login(nombre, contrasenia)
+        if tienda_pizza.usuario_registrado(nombre):
+            contrasenia = input("Introduce contraseña: ")
+            usuario = tienda_pizza.login(nombre, contrasenia)
             if usuario:
-                last_order = usuario.last_order()
-                if last_order:
-                    print(f"Your last order was: {last_order}")
+                ultimo_pedido = usuario.ultimo_pedido()
+                if ultimo_pedido:
+                    print(f"Tu último pedido fue: {ultimo_pedido}")
                 else:
                     print("You haven't placed any ordenes yet.")
         else:
-            contrasenia = input("Create a contrasenia: ")
-            pizza_shop.register_customer(nombre, contrasenia)
-            customer = pizza_shop.login(nombre, contrasenia)
-            print("Welcome, new customer!")
+            contrasenia = input("Crea una contraseña: ")
+            tienda_pizza.usuario_registrado(nombre, contrasenia)
+            usuario = tienda_pizza.login(nombre, contrasenia)
+            print("Bienvenido!")
 
         while True:
-            choice = input("\nWhat would you like to do (order/quit)? ")
+            elegir = input("\nQué le gustaría hacer: pedir o salir? ")
 
-            if choice == "0":
+            if elegir == "salir":
                 break
 
-            if choice == "order":
-                pizza_type = input("Choose a pizza (Margherita/Pepperoni): ")
-                pizza = Pizza(pizza_type)
+            if elegir == "pedir":
+                #Cambiar el código de aquí para que llame al otro lado
+                tipo_pizza = input("Choose a pizza (Margherita/Pepperoni): ")
+                pizza = Pizza(tipo_pizza)
 
                 extra_choice = input("Would you like any extras (e.g., mushrooms)? (yes/no): ")
                 while extra_choice == "yes":
@@ -120,11 +121,11 @@ def main():
                     pizza.add_extra(extra)
                     extra_choice = input("Would you like more extras (yes/no): ")
 
-                usuario.place_order(pizza)
+                usuario.pedido_actual(pizza)
                 print(f"Order placed: {pizza}")
 
     print("Goodbye!")
-    pizza_shop.save_data()
+    tienda_pizza.guardar_datos()
 
 
 if __name__ == "__main__":
