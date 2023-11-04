@@ -43,12 +43,12 @@ class Usuario:
 class TiendaPizza:
     def __init__(self):
         self.usuario = {}
-        self.load_data()
+        self.cargando_datos()
 
     def guardar_datos(self):
         with open('pizza_data.csv', mode='w', newline='') as file:
             escribir = csv.writer(file)
-            for usuario in self.usuarios.values():
+            for usuario in self.usuario.values():
                 for orden in usuario.ordenes:
                     escribir.writerow([usuario.nombre, usuario.contrasenia, orden.nombre, ', '.join(orden.extras)])
 
@@ -58,25 +58,25 @@ class TiendaPizza:
                 leer = csv.reader(file)
                 for fila in leer:
                     nombre, contrasenia, pizza_nombre, extras = fila
-                    if nombre not in self.usuarios:
-                        self.usuarios[nombre] = Usuario(nombre, contrasenia)
-                    usuario = self.usuarios[nombre]
+                    if nombre not in self.usuario:
+                        self.usuario[nombre] = Usuario(nombre, contrasenia)
+                    usuario = self.usuario[nombre]
                     pizza = Pizza(pizza_nombre, extras.split(', '))
-                    usuario.place_order(pizza)
+                    usuario.pedido_actual(pizza)
         except FileNotFoundError:
             pass
     def registrar_usuario(self, nombre, contrasenia):
-        if nombre not in self.usuarios:
-            self.usuarios[nombre] = Usuario(nombre, contrasenia)
+        if nombre not in self.usuario:
+            self.usuario[nombre] = Usuario(nombre, contrasenia)
 
     def login(self, nombre, contrasenia):
-        if nombre in self.usuarios and self.usuarios[nombre].contrasenia == contrasenia:
-            return self.usuarios[nombre]
+        if nombre in self.usuario and self.usuario[nombre].contrasenia == contrasenia:
+            return self.usuario[nombre]
         else:
             return None
 
     def usuario_registrado(self, nombre):
-        return nombre in self.usuarios
+        return nombre in self.usuario
 
 
 def main():
@@ -97,10 +97,10 @@ def main():
                 if ultimo_pedido:
                     print(f"Tu último pedido fue: {ultimo_pedido}")
                 else:
-                    print("You haven't placed any ordenes yet.")
+                    print("Aún no tienes ningún pedido registrado")
         else:
             contrasenia = input("Crea una contraseña: ")
-            tienda_pizza.usuario_registrado(nombre, contrasenia)
+            tienda_pizza.registrar_usuario(nombre, contrasenia)
             usuario = tienda_pizza.login(nombre, contrasenia)
             print("Bienvenido!")
 
@@ -124,7 +124,7 @@ def main():
                 usuario.pedido_actual(pizza)
                 print(f"Order placed: {pizza}")
 
-    print("Goodbye!")
+    print("Hasta la próxima!")
     tienda_pizza.guardar_datos()
 
 
