@@ -10,18 +10,6 @@ Tiene que haber medidas de seguridad para que no se pueda acceder a los datos de
 import csv
 from builder import *
 
-'''class Pizza:
-    def __init__(self, nombre, extras=None):
-        self.nombre = nombre
-        self.extras = extras if extras else []
-
-    def add_extra(self, extra):
-        self.extras.append(extra)
-
-    def __str__(self):
-        extras_str = ", ".join(self.extras)
-        return f"{self.nombre} ({extras_str})" if self.extras else self.nombre'''
-
 
 class Usuario:
     '''
@@ -33,9 +21,7 @@ class Usuario:
         self.contrasenia = contrasenia
         self.ordenes = []
 
-    def pedido_actual(self, pizza, extras=None):
-        if extras:
-            pizza.add_extra(extras)
+    def pedido_actual(self, pizza):
         self.ordenes.append(pizza)
 
     def ultimo_pedido(self):
@@ -57,29 +43,32 @@ class WebPizzeria:
     def guardar_datos(self):
         with open('pizza_data.csv', mode='w', newline='') as file:
             escribir = csv.writer(file)
-            for usuario in self.usuario.values():
-                for orden in usuario.ordenes:
-                    escribir.writerow([usuario.nombre, usuario.contrasenia, ', '.join(orden.extras)])
+            for usuario in self.usuario.values(): #Recorremos el diccionario de usuarios
+                for orden in usuario.ordenes: #Recorremos la lista de pizzas
+                    escribir.writerow([usuario.nombre, usuario.contrasenia, orden])
 
     def cargando_datos(self):
         try:
             with open('pizza_data.csv', mode='r') as file:
                 leer = csv.reader(file)
                 for fila in leer:
+                    #Añadimos al diccionario usuario el nombre (ya está registrado)
                     nombre, contrasenia, pedido = fila
-                    if nombre not in self.usuario:
-                        self.usuario[nombre] = Usuario(nombre, contrasenia)
-                    usuario = self.usuario[nombre]
+                    if nombre not in self.usuario: #Si el nombre del usuario no está en el diccionario
+                        self.usuario[nombre] = Usuario(nombre, contrasenia)#añadimos el usuario al diccionario
+                    usuario = self.usuario[nombre] #Asociamos a la vaiable usuario el nombre del usuario
                     pizza = pedido.split(', ')
-                    usuario.pedido_actual(pizza)
+                    usuario.pedido_actual(pizza) #Vamos añadiendo las pizzas que tiene el usuario asociadas
         except FileNotFoundError:
             pass
     def registrar_usuario(self, nombre, contrasenia):
-        if nombre not in self.usuario:
-            self.usuario[nombre] = Usuario(nombre, contrasenia)
+        if nombre not in self.usuario: #Si el nombre del usuario no está en el diccionario (no está registrado)
+            self.usuario[nombre] = Usuario(nombre, contrasenia) #añadimos el usuario al diccionario
 
     def login(self, nombre, contrasenia):
-        if nombre in self.usuario and self.usuario[nombre].contrasenia == contrasenia:
+        #Comprobamos que el nombre y la contraseña coinciden con los datos guardados y 
+        #devolvemos el nombre del usuario
+        if nombre in self.usuario and self.usuario[nombre].contrasenia == contrasenia: 
             return self.usuario[nombre]
         else:
             return None
@@ -105,9 +94,9 @@ def main():
             '''
             contrasenia = input("Introduce contraseña: ")
             usuario = web_pizza.login(nombre, contrasenia)
-            if usuario:
+            if usuario: #Si coincide el nombre y la contraseña (login correcto)
                 ultimo_pedido = usuario.ultimo_pedido()
-                if ultimo_pedido:
+                if ultimo_pedido: #Si hay algún pedido registrado
                     print(f"Tu último pedido fue: {ultimo_pedido}")
                     pedir = input("Quieres pedir lo mismo? (Si/No) ")
                     if pedir == "Si":
@@ -115,19 +104,22 @@ def main():
                         print('El pedido se ha realizado con éxito')
                         controlador = False
                     else: #No
+                        #Construimos la pizza nueva
                         director = Director() #Chef
                         builder = ConcreteBuilder1() #Tipo de pizza
                         director.builder = builder #Le decimos al chef que tipo de pizza queremos
                         
                         print("Pizza 1: ")
                         director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
-                        a = builder.pizza.get_parts()
-                        builder.reset()
+                        a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
                         usuario.pedido_actual(a)
+                        builder.reset() #Reseteamos el builder para que no se acumulen los datos
                         controlador = False
          
-                else:
+                else: #No hay ningún pedido registrado
                     print("Aún no tienes ningún pedido registrado")
+                    
+                    #Preparamos para el nuevo pedido
                     director = Director() #Chef
                     builder = ConcreteBuilder1() #Tipo de pizza
                     director.builder = builder #Le decimos al chef que tipo de pizza queremos
@@ -135,7 +127,11 @@ def main():
                     print("Pizza 1: ")
                     director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
                     builder.pizza.list_parts() #Unimos todo
+                    a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
+                    usuario.pedido_actual(a)
+                    builder.reset() #Reseteamos el builder para que no se acumulen los datos
                     controlador = False
+
         else:
             '''
             El usuario no está registrado, por lo que le pedimos que cree una contraseña.
@@ -143,8 +139,21 @@ def main():
             '''
             contrasenia = input("Crea una contraseña: ")
             web_pizza.registrar_usuario(nombre, contrasenia)
-            usuario = web_pizza.login(nombre, contrasenia)
+            usuario = web_pizza.login(nombre, contrasenia) #Abrir sesión
             print("Bienvenido!")
+            
+            #Preparamos para el nuevo pedido
+            director = Director() #Chef
+            builder = ConcreteBuilder1() #Tipo de pizza
+            director.builder = builder #Le decimos al chef que tipo de pizza queremos
+            
+            print("Pizza 1: ")
+            director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
+            builder.pizza.list_parts() #Unimos todo
+            a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
+            usuario.pedido_actual(a)
+            builder.reset() #Reseteamos el builder para que no se acumulen los datos
+            controlador = False
 
         '''while controlador:
             elegir = input("\nQué quiere pedir? (0 para salir) ")
