@@ -57,8 +57,7 @@ class WebPizzeria:
                     if nombre not in self.usuario: #Si el nombre del usuario no está en el diccionario
                         self.usuario[nombre] = Usuario(nombre, contrasenia)#añadimos el usuario al diccionario
                     usuario = self.usuario[nombre] #Asociamos a la vaiable usuario el nombre del usuario
-                    pizza = pedido.split(', ')
-                    usuario.pedido_actual(pizza) #Vamos añadiendo las pizzas que tiene el usuario asociadas
+                    usuario.pedido_actual(pedido) #Vamos añadiendo las pizzas que tiene el usuario asociadas
         except FileNotFoundError:
             pass
         
