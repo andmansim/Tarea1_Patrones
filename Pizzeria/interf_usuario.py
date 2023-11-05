@@ -8,6 +8,7 @@ Si quiere otra, se le pregunta que tipo de pizza quiere y se le guarda en su his
 Tiene que haber medidas de seguridad para que no se pueda acceder a los datos de otros clientes.
 '''
 import csv
+from builder import *
 
 class Pizza:
     def __init__(self, nombre, extras=None):
@@ -23,6 +24,10 @@ class Pizza:
 
 
 class Usuario:
+    '''
+    Esta clase se encarga de recoger el pedido actual y mirar si ha habido algún pedido anterior 
+    con dicho usuario.
+    '''
     def __init__(self, nombre, contrasenia):
         self.nombre = nombre
         self.contrasenia = contrasenia
@@ -40,7 +45,11 @@ class Usuario:
             return None
 
 
-class TiendaPizza:
+class WebPizzeria:
+    '''
+    la clase encargada del registro y login de los usuarios a la página. 
+    Donde llama a la clase usuario para guardar los datos de los usuarios y de las pizzas.
+    '''
     def __init__(self):
         self.usuario = {}
         self.cargando_datos()
@@ -80,7 +89,7 @@ class TiendaPizza:
 
 
 def main():
-    tienda_pizza = TiendaPizza()
+    web_pizza = WebPizzeria()
     controlador = True
     while controlador:
         print("\nBienvenido a la pizzería!")
@@ -89,29 +98,51 @@ def main():
         if nombre == "0":
             controlador = False
 
-        if tienda_pizza.usuario_registrado(nombre):
+        if web_pizza.usuario_registrado(nombre):
+            '''
+            Si el usuario ya está registrado, le pedimos la contraseña para que inicie sesión. 
+            Si la contraseña es correcta, le damos la bienvenida y le mostramos su último pedido.
+            '''
             contrasenia = input("Introduce contraseña: ")
-            usuario = tienda_pizza.login(nombre, contrasenia)
+            usuario = web_pizza.login(nombre, contrasenia)
             if usuario:
                 ultimo_pedido = usuario.ultimo_pedido()
                 if ultimo_pedido:
                     print(f"Tu último pedido fue: {ultimo_pedido}")
+                    pedir = input("Quieres pedir lo mismo? (Si/No) ")
+                    if pedir == "Si":
+                        usuario.pedido_actual(ultimo_pedido)
+                        print('El pedido se ha realizado con éxito')
+                    else: #No
+                        director = Director() #Chef
+                        builder = ConcreteBuilder1() #Tipo de pizza
+                        director.builder = builder #Le decimos al chef que tipo de pizza queremos
+                        
+                        print("Pizza 1: ")
+                        director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
+                        builder.pizza.list_parts() #Unimos todo
+         
                 else:
                     print("Aún no tienes ningún pedido registrado")
         else:
+            '''
+            El usuario no está registrado, por lo que le pedimos que cree una contraseña.
+            Registramos al usuario y le damos la bienvenida.
+            '''
             contrasenia = input("Crea una contraseña: ")
-            tienda_pizza.registrar_usuario(nombre, contrasenia)
-            usuario = tienda_pizza.login(nombre, contrasenia)
+            web_pizza.registrar_usuario(nombre, contrasenia)
+            usuario = web_pizza.login(nombre, contrasenia)
             print("Bienvenido!")
 
         while controlador:
-            elegir = input("\nQué le pedir? (0 para salir) ")
+            elegir = input("\nQué quiere pedir? (0 para salir) ")
 
             if elegir == "0":
                 controlador = False
 
             if elegir == "pedir":
                 #Cambiar el código de aquí para que llame al otro lado
+                    
                 tipo_pizza = input("Choose a pizza (Margherita/Pepperoni): ")
                 pizza = Pizza(tipo_pizza)
 
@@ -125,7 +156,7 @@ def main():
                 print(f"Order placed: {pizza}")
 
     print("Hasta la próxima!")
-    tienda_pizza.guardar_datos()
+    web_pizza.guardar_datos()
 
 
 if __name__ == "__main__":
