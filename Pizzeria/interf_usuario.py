@@ -61,6 +61,7 @@ class WebPizzeria:
                     usuario.pedido_actual(pizza) #Vamos añadiendo las pizzas que tiene el usuario asociadas
         except FileNotFoundError:
             pass
+        
     def registrar_usuario(self, nombre, contrasenia):
         if nombre not in self.usuario: #Si el nombre del usuario no está en el diccionario (no está registrado)
             self.usuario[nombre] = Usuario(nombre, contrasenia) #añadimos el usuario al diccionario
@@ -103,34 +104,10 @@ def main():
                         usuario.pedido_actual(ultimo_pedido)
                         print('El pedido se ha realizado con éxito')
                         controlador = False
-                    else: #No
-                        #Construimos la pizza nueva
-                        director = Director() #Chef
-                        builder = ConcreteBuilder1() #Tipo de pizza
-                        director.builder = builder #Le decimos al chef que tipo de pizza queremos
-                        
-                        print("Pizza 1: ")
-                        director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
-                        a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
-                        usuario.pedido_actual(a)
-                        builder.reset() #Reseteamos el builder para que no se acumulen los datos
-                        controlador = False
          
                 else: #No hay ningún pedido registrado
                     print("Aún no tienes ningún pedido registrado")
                     
-                    #Preparamos para el nuevo pedido
-                    director = Director() #Chef
-                    builder = ConcreteBuilder1() #Tipo de pizza
-                    director.builder = builder #Le decimos al chef que tipo de pizza queremos
-                    
-                    print("Pizza 1: ")
-                    director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
-                    builder.pizza.list_parts() #Unimos todo
-                    a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
-                    usuario.pedido_actual(a)
-                    builder.reset() #Reseteamos el builder para que no se acumulen los datos
-                    controlador = False
 
         else:
             '''
@@ -141,6 +118,9 @@ def main():
             web_pizza.registrar_usuario(nombre, contrasenia)
             usuario = web_pizza.login(nombre, contrasenia) #Abrir sesión
             print("Bienvenido!")
+
+
+        while controlador:
             
             #Preparamos para el nuevo pedido
             director = Director() #Chef
@@ -154,27 +134,6 @@ def main():
             usuario.pedido_actual(a)
             builder.reset() #Reseteamos el builder para que no se acumulen los datos
             controlador = False
-
-        '''while controlador:
-            elegir = input("\nQué quiere pedir? (0 para salir) ")
-
-            if elegir == "0":
-                controlador = False
-
-            if elegir == "pedir":
-                #Cambiar el código de aquí para que llame al otro lado
-                    
-                tipo_pizza = input("Choose a pizza (Margherita/Pepperoni): ")
-                pizza = Pizza(tipo_pizza)
-
-                extra_choice = input("Would you like any extras (e.g., mushrooms)? (yes/no): ")
-                while extra_choice == "yes":
-                    extra = input("Enter an extra: ")
-                    pizza.add_extra(extra)
-                    extra_choice = input("Would you like more extras (yes/no): ")
-
-                usuario.pedido_actual(pizza)
-                print(f"Order placed: {pizza}")'''
 
     print("\nHasta la próxima!")
     web_pizza.guardar_datos()
