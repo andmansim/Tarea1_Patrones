@@ -59,7 +59,7 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
     @property
     def pizza(self) -> Product1:
         pizza = self._pizza
-        self.reset()
+        #self.reset()
         return pizza
 
     def tipo_masa(self) -> None:
@@ -113,13 +113,15 @@ class Product1(): #Pizza agrupada
 
     def __init__(self) -> None:
         self.parts = []
+        
+    def get_parts(self) -> list:
+        return self.parts
 
     def add(self, part: Any) -> None:
         self.parts.append(part)
 
     def list_parts(self) -> None:
         print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
-
 
 class Director: #Chef
     '''
@@ -160,6 +162,9 @@ if __name__ == "__main__":
     print("Pizza 1: ")
     director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts() #Unimos todo
-
+    a = builder.pizza.get_parts()
+    builder.reset()
     
+    print(a)
+    print(builder.pizza.get_parts())
     

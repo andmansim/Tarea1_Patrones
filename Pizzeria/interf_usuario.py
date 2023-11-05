@@ -10,7 +10,7 @@ Tiene que haber medidas de seguridad para que no se pueda acceder a los datos de
 import csv
 from builder import *
 
-class Pizza:
+'''class Pizza:
     def __init__(self, nombre, extras=None):
         self.nombre = nombre
         self.extras = extras if extras else []
@@ -20,7 +20,7 @@ class Pizza:
 
     def __str__(self):
         extras_str = ", ".join(self.extras)
-        return f"{self.nombre} ({extras_str})" if self.extras else self.nombre
+        return f"{self.nombre} ({extras_str})" if self.extras else self.nombre'''
 
 
 class Usuario:
@@ -59,18 +59,18 @@ class WebPizzeria:
             escribir = csv.writer(file)
             for usuario in self.usuario.values():
                 for orden in usuario.ordenes:
-                    escribir.writerow([usuario.nombre, usuario.contrasenia, orden.nombre, ', '.join(orden.extras)])
+                    escribir.writerow([usuario.nombre, usuario.contrasenia, ', '.join(orden.extras)])
 
     def cargando_datos(self):
         try:
             with open('pizza_data.csv', mode='r') as file:
                 leer = csv.reader(file)
                 for fila in leer:
-                    nombre, contrasenia, pizza_nombre, extras = fila
+                    nombre, contrasenia, pedido = fila
                     if nombre not in self.usuario:
                         self.usuario[nombre] = Usuario(nombre, contrasenia)
                     usuario = self.usuario[nombre]
-                    pizza = Pizza(pizza_nombre, extras.split(', '))
+                    pizza = pedido.split(', ')
                     usuario.pedido_actual(pizza)
         except FileNotFoundError:
             pass
@@ -113,6 +113,7 @@ def main():
                     if pedir == "Si":
                         usuario.pedido_actual(ultimo_pedido)
                         print('El pedido se ha realizado con éxito')
+                        controlador = False
                     else: #No
                         director = Director() #Chef
                         builder = ConcreteBuilder1() #Tipo de pizza
@@ -120,10 +121,21 @@ def main():
                         
                         print("Pizza 1: ")
                         director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
-                        builder.pizza.list_parts() #Unimos todo
+                        a = builder.pizza.get_parts()
+                        builder.reset()
+                        usuario.pedido_actual(a)
+                        controlador = False
          
                 else:
                     print("Aún no tienes ningún pedido registrado")
+                    director = Director() #Chef
+                    builder = ConcreteBuilder1() #Tipo de pizza
+                    director.builder = builder #Le decimos al chef que tipo de pizza queremos
+                    
+                    print("Pizza 1: ")
+                    director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
+                    builder.pizza.list_parts() #Unimos todo
+                    controlador = False
         else:
             '''
             El usuario no está registrado, por lo que le pedimos que cree una contraseña.
@@ -134,7 +146,7 @@ def main():
             usuario = web_pizza.login(nombre, contrasenia)
             print("Bienvenido!")
 
-        while controlador:
+        '''while controlador:
             elegir = input("\nQué quiere pedir? (0 para salir) ")
 
             if elegir == "0":
@@ -153,9 +165,9 @@ def main():
                     extra_choice = input("Would you like more extras (yes/no): ")
 
                 usuario.pedido_actual(pizza)
-                print(f"Order placed: {pizza}")
+                print(f"Order placed: {pizza}")'''
 
-    print("Hasta la próxima!")
+    print("\nHasta la próxima!")
     web_pizza.guardar_datos()
 
 
