@@ -7,7 +7,6 @@ if __name__ == "__main__":
     controlador = True
     while controlador:
         controlador, usuario = menu(web_pizza)
-
         while controlador:
             #Preparamos para el nuevo pedido
             crear_pizza(usuario)
