@@ -153,7 +153,7 @@ class Director: #Chef
 
     
 
-if __name__ == "__main__":
+'''if __name__ == "__main__":
 
     director = Director() #Chef
     builder = ConcreteBuilder1() #Tipo de pizza
@@ -167,4 +167,4 @@ if __name__ == "__main__":
     
     print(a)
     print(builder.pizza.get_parts())
-    
+    '''

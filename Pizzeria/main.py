@@ -1,6 +1,6 @@
 from builder import *
 from interf_usuario import *
-from cositas import *
+from funciones_main import *
 
 if __name__ == "__main__":
     web_pizza = WebPizzeria()

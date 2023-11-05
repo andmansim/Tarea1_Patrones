@@ -77,7 +77,7 @@ class WebPizzeria:
         return nombre in self.usuario
 
 
-def main():
+'''def main():
     web_pizza = WebPizzeria()
     controlador = True
     while controlador:
@@ -88,10 +88,10 @@ def main():
             controlador = False
 
         if web_pizza.usuario_registrado(nombre):
-            '''
+            ''
             Si el usuario ya está registrado, le pedimos la contraseña para que inicie sesión. 
             Si la contraseña es correcta, le damos la bienvenida y le mostramos su último pedido.
-            '''
+            ''
             contrasenia = input("Introduce contraseña: ")
             usuario = web_pizza.login(nombre, contrasenia)
             if usuario: #Si coincide el nombre y la contraseña (login correcto)
@@ -109,10 +109,10 @@ def main():
                     
 
         else:
-            '''
+            ''
             El usuario no está registrado, por lo que le pedimos que cree una contraseña.
             Registramos al usuario y le damos la bienvenida.
-            '''
+            ''
             contrasenia = input("Crea una contraseña: ")
             web_pizza.registrar_usuario(nombre, contrasenia)
             usuario = web_pizza.login(nombre, contrasenia) #Abrir sesión
@@ -140,3 +140,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+'''
