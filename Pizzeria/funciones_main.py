@@ -38,12 +38,12 @@ def menu(web_pizza):
         print("Bienvenido!") 
     return True, usuario
 
-def crear_pizza(usuario):
+def crear_pizza(usuario, numero):
     director = Director() #Chef
     builder = ConcreteBuilder1() #Tipo de pizza
     director.builder = builder #Le decimos al chef que tipo de pizza queremos
     
-    print("Pizza 1: ")
+    print(f"Pizza {numero} : ")
     director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts() #Unimos todo
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
