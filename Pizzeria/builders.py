@@ -3,7 +3,6 @@ from abc import ABC, abstractmethod
 from typing import Any #tipado dinámigo 
 
 
-
 class Builder(ABC):
     """
     Es una clase abstracta que contiene la estructura básica de una pizza. 
