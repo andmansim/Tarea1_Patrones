@@ -64,32 +64,32 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
         return pizza
 
     def tipo_masa(self) -> None:
-        masa = input("¿Qué tipo de masa quieres? (fina, normal, gruesa): ")
+        masa = input("¿Qué tipo de masa quieres? (Por ejemplo: fina, normal, gruesa): ")
         self._pizza.add(masa)
     
     def salsa_base(self) -> None:
-        salsa = input("¿Qué salsa quieres? (tomate, barbacoa, carbonara): ")
+        salsa = input("¿Qué salsa quieres? (Por ejemplo: tomate, barbacoa, carbonara): ")
         self._pizza.add(salsa)
     
     def ingr_principales(self) -> None:
         while True:
-            ingrediente = input("¿Qué ingrediente quieres? (pulsa 0 para salir): ")
+            ingrediente = input("¿Qué ingrediente quieres? (Si no quieres ninguno pulsa 0 para salir): ")
             if ingrediente == "0":
                 break
             else:
                 self._pizza.add(ingrediente)
     
     def tec_coccion(self) -> None:
-        coccion = input("¿Qué técnica de cocción quieres? (horno de leña, horno eléctrico, horno de gas): ")
+        coccion = input("¿Qué técnica de cocción quieres? (Por ejemplo: horno de leña, horno eléctrico, horno de gas): ")
         self._pizza.add(coccion)
     
     def presentacion(self) -> None:
-        presentacion = input("¿Cómo quieres que se presente? (en caja de cartón, en plato de barro): ")
+        presentacion = input("¿Cómo quieres que se presente? (Por ejemplo: en caja de cartón, en plato de barro): ")
         self._pizza.add(presentacion)
     
     def maridajes(self) -> None:
         while True:
-            maridaje = input("¿Qué maridaje quieres? (Vino tinto, cerveza, etc.)(pulsa 0 para salir): ")
+            maridaje = input("¿Qué maridaje quieres? (Por ejemplo: vino tinto, cerveza, etc.)(Si no quieres ninguno pulsa 0 para salir): ")
             if maridaje == "0":
                 break
             else:
@@ -98,7 +98,7 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
     
     def extras(self) -> None:
         while True:
-            extra = input("¿Qué extra quieres? (bordes especiales, ingrediente extra, etc.)(pulsa 0 para salir): ")
+            extra = input("¿Qué extra quieres? (Por ejemplo: bordes especiales, ingrediente extra, etc.)(Si no quieres ninguno pulsa 0 para salir): ")
             if extra == "0":
                 break
             else:

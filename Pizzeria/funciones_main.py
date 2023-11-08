@@ -1,8 +1,10 @@
 from builder import *
-from interf_usuario import *
+from usuario import Usuario
+from manejardatos import WebPizzeria
 
 def menu(web_pizza):
     print("\nBienvenido a la pizzería!")
+    print('\nEn esta pizzería tenemos de TODO')
     nombre = input("Por favor introduzca su nombre de usuario (0 para salir): ")
 
     if nombre == "0":
