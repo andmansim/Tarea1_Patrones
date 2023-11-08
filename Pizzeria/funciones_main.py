@@ -1,6 +1,7 @@
-from builder import *
-from usuario import Usuario
-from manejardatos import WebPizzeria
+#from builder import *
+#from usuario import Usuario
+#from manejardatos import WebPizzeria
+from . import builder
 
 def menu(web_pizza):
     print("\nBienvenido a la pizzería Sin hambre!")
@@ -41,8 +42,8 @@ def menu(web_pizza):
     return True, usuario
 
 def crear_pizza(usuario, numero):
-    director = Director() #Chef
-    builder = ConcreteBuilder1() #Tipo de pizza
+    director = builder.Director() #Chef
+    builder = builder.ConcreteBuilder1() #Tipo de pizza
     director.builder = builder #Le decimos al chef que tipo de pizza queremos
     
     print(f"Pizza {numero} : ")
