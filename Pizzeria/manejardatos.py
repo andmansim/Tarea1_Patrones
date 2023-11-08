@@ -1,4 +1,4 @@
-from usuario import Usuario
+from . import usuarios
 import csv
 class WebPizzeria:
     '''
@@ -24,7 +24,7 @@ class WebPizzeria:
                     #Añadimos al diccionario usuario el nombre (ya está registrado)
                     nombre, contrasenia, pedido = fila
                     if nombre not in self.usuario: #Si el nombre del usuario no está en el diccionario
-                        self.usuario[nombre] = Usuario(nombre, contrasenia)#añadimos el usuario al diccionario
+                        self.usuario[nombre] = usuarios.Usuario(nombre, contrasenia)#añadimos el usuario al diccionario
                     usuario = self.usuario[nombre] #Asociamos a la vaiable usuario el nombre del usuario
                     usuario.pedido_actual(pedido) #Vamos añadiendo las pizzas que tiene el usuario asociadas
         except FileNotFoundError:
@@ -32,7 +32,7 @@ class WebPizzeria:
         
     def registrar_usuario(self, nombre, contrasenia):
         if nombre not in self.usuario: #Si el nombre del usuario no está en el diccionario (no está registrado)
-            self.usuario[nombre] = Usuario(nombre, contrasenia) #añadimos el usuario al diccionario
+            self.usuario[nombre] = usuarios.Usuario(nombre, contrasenia) #añadimos el usuario al diccionario
 
     def login(self, nombre, contrasenia):
         #Comprobamos que el nombre y la contraseña coinciden con los datos guardados y 
