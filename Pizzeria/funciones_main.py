@@ -3,7 +3,7 @@ from usuario import Usuario
 from manejardatos import WebPizzeria
 
 def menu(web_pizza):
-    print("\nBienvenido a la pizzería!")
+    print("\nBienvenido a la pizzería Sin hambre!")
     print('\nEn esta pizzería tenemos de TODO')
     nombre = input("Por favor introduzca su nombre de usuario (0 para salir): ")
 
