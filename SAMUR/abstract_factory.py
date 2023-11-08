@@ -1,6 +1,5 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from leer_csv import datos_num, datos
 import matplotlib.pyplot as plt
 
 

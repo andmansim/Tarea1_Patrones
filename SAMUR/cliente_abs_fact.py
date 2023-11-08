@@ -1,6 +1,6 @@
-from abstract_factory import AbstractFactory
+from . import abstract_factory
 
-def client_code(factory: AbstractFactory, datos, numero) -> None:
+def client_code(factory: abstract_factory.AbstractFactory, datos, numero) -> None:
     """
     Función donde instanciamos todas las clases y los métodos que necesitemos.
      

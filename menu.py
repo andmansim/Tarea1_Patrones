@@ -1,6 +1,7 @@
 import helpers
-import SAMUR.main as samur
-import Pizzeria.main as pizzeria
+from SAMUR import main as samur
+#import Pizzeria.main as pizzeria
+
 def iniciar():
      while True:
         helpers.limpiar_pantalla()
@@ -18,11 +19,11 @@ def iniciar():
 
         if opcion == '1':
             print("Ejercicio del SAMUR\n")
-            samur.iniciar()
+            samur.main()
                 
         if opcion == '2':
             print("Ejercicio de Pizzeria\n")
-            pizzeria.iniciar()
+            #pizzeria.main()
         
         if opcion == '3':
             print("Saliendo...\n")
