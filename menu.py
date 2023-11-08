@@ -1,5 +1,6 @@
 import helpers
 from SAMUR import main as samur
+from Pizzeria import main as pizzeria
 #import Pizzeria.main as pizzeria
 
 def iniciar():
@@ -23,7 +24,7 @@ def iniciar():
                 
         if opcion == '2':
             print("Ejercicio de Pizzeria\n")
-            #pizzeria.main()
+            pizzeria.main()
         
         if opcion == '3':
             print("Saliendo...\n")

@@ -1,8 +1,7 @@
 from . import builders
 
 def menu(web_pizza):
-    print("\nBienvenido a la pizzería Sin hambre!")
-    print('\nEn esta pizzería tenemos de TODO')
+    
     nombre = input("Por favor introduzca su nombre de usuario (0 para salir): ")
 
     if nombre == "0":
@@ -27,6 +26,9 @@ def menu(web_pizza):
         
             else: #No hay ningún pedido registrado
                 print("Aún no tienes ningún pedido registrado")
+        else:
+            print('\nNombre de usuario o contraseña incorrectos.')
+            menu(web_pizza)
     else:
         '''
         El usuario no está registrado, por lo que le pedimos que cree una contraseña.
