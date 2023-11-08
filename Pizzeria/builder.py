@@ -151,21 +151,3 @@ class Director: #Chef
         self.builder.maridajes()
         self.builder.extras()
         
-
-    
-
-'''if __name__ == "__main__":
-
-    director = Director() #Chef
-    builder = ConcreteBuilder1() #Tipo de pizza
-    director.builder = builder #Le decimos al chef que tipo de pizza queremos
-    
-    print("Pizza 1: ")
-    director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
-    builder.pizza.list_parts() #Unimos todo
-    a = builder.pizza.get_parts()
-    builder.reset()
-    
-    print(a)
-    print(builder.pizza.get_parts())
-    '''
